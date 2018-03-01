@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Platform, View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 
 class ReviewScreen extends React.Component {
@@ -16,6 +16,9 @@ class ReviewScreen extends React.Component {
         Go Right
       </Button>
     ),
+    headerStyle: {
+      marginTop: Platform.OS === 'android' ? 24 : 0
+    }
   });
 
   render() {
