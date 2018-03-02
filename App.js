@@ -27,6 +27,10 @@ export default class App extends React.Component {
           },
         }),
       },
+    }, {
+      // only mount components when the user navigates to them
+      lazy: true,
+      navigationOptions: { tabBarVisible: false }
     });
 
     return (
