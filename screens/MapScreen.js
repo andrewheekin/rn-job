@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
+import { Button } from 'react-native-elements';
 import { MapView } from 'expo';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class MapScreen extends React.Component {
   state = {
@@ -18,6 +21,7 @@ class MapScreen extends React.Component {
   }
 
   handleRegionChange = region => this.setState({ region });
+  handleBtnPress = () => this.props.fetchJobs(this.state.region);
 
   render() {
     if (!this.state.mapLoaded)
@@ -29,9 +33,27 @@ class MapScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <MapView region={this.state.region} style={{ flex: 1 }} onRegionChangeComplete={this.handleRegionChange} />
+        <View style={styles.btnContainer}>
+          <Button
+            large
+            title="Search this area"
+            backgroundColor="#009688"
+            icon={{ name: 'search' }}
+            onPress={this.handleBtnPress}
+          />
+        </View>
       </View>
     );
   }
 }
 
-export default MapScreen;
+const styles = {
+  btnContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+  },
+};
+
+export default connect(null, actions)(MapScreen);
