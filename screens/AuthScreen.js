@@ -23,8 +23,6 @@ class AuthScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { token: auth.token };
-};
+const mapStateToProps = ({ auth }) => ({ token: auth.token });
 
 export default connect(mapStateToProps, actions)(AuthScreen);

@@ -21,7 +21,10 @@ class MapScreen extends React.Component {
   }
 
   handleRegionChange = region => this.setState({ region });
-  handleBtnPress = () => this.props.fetchJobs(this.state.region);
+  handleBtnPress = () => {
+    this.props.fetchJobs(this.state.region);
+    this.props.navigation.navigate('deck');
+  };
 
   render() {
     if (!this.state.mapLoaded)
