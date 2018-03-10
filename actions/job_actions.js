@@ -1,6 +1,6 @@
 import reverseGeocode from 'latlng-to-zip';
 import qs from 'qs';
-import { FETCH_JOBS } from './types';
+import { FETCH_JOBS, LIKE_JOB } from './types';
 import { simpleGetRequest } from '../utils/makeRequest';
 
 const JOB_ROOT_URL = 'http://api.indeed.com/ads/apisearch?';
@@ -26,3 +26,5 @@ export const fetchJobs = region => async dispatch => {
     throw new Error(`Fetch jobs: ${err}`);
   }
 };
+
+export const likeJob = job => ({ payload: job, type: LIKE_JOB });

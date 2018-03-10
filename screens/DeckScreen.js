@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
 import { Card, Button } from 'react-native-elements';
+import * as actions from '../actions';
 import Swipe from '../components/Swipe';
 
 class DeckScreen extends React.Component {
@@ -47,7 +48,13 @@ class DeckScreen extends React.Component {
     const { jobs } = this.props;
     return (
       <View style={{ marginTop: 10 }}>
-        <Swipe data={jobs} renderCard={this.renderCard} renderNoMoreCards={this.renderNoMoreCards} keyProp="jobkey" />
+        <Swipe
+          keyProp="jobkey"
+          data={jobs}
+          renderCard={this.renderCard}
+          renderNoMoreCards={this.renderNoMoreCards}
+          onSwipeRight={job => this.props.likeJob(job)}
+        />
       </View>
     );
   }
@@ -59,4 +66,4 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ jobs }) => ({ jobs: jobs.results });
 
-export default connect(mapStateToProps)(DeckScreen);
+export default connect(mapStateToProps, actions)(DeckScreen);

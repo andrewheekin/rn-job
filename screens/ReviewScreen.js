@@ -1,6 +1,7 @@
 import React from 'react';
-import { Platform, View, Text } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Platform, View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Button, Card } from 'react-native-elements';
+import { connect } from 'react-redux';
 
 class ReviewScreen extends React.Component {
   // reserved class level property that react-navigation uses
@@ -17,20 +18,34 @@ class ReviewScreen extends React.Component {
       </Button>
     ),
     headerStyle: {
-      marginTop: Platform.OS === 'android' ? 24 : 0
-    }
+      marginTop: Platform.OS === 'android' ? 24 : 0,
+    },
+  });
+
+  renderLikedJobs = () => this.props.likedJobs.map(job => {
+    return (
+      <Card>
+        <View style={{ height: 200 }}>
+          <View style={styles.detailWrapper}>
+            <Text style={{ fontStyle: 'italic' }}>{job.company}</Text>
+            <Text style={{ fontStyle: 'italic' }}>{job.formattedRelativeTime}</Text>
+          </View>
+        </View>
+      </Card>
+    );
   });
 
   render() {
     return (
-      <View>
-        <Text>Review Screen</Text>
-        <Text>Review Screen</Text>
-        <Text>Review Screen</Text>
-        <Text>Review Screen</Text>
-      </View>
+      <ScrollView>
+        {this.renderLikedJobs()}
+      </ScrollView>
     );
   }
 }
 
-export default ReviewScreen;
+const styles = StyleSheet.create({ detailWrapper: { marginBottom: 10, flexDirection: 'row', justifyContent: 'space-around' }});
+
+const mapStateToProps = state => ({ likedJobs: state.likedJobs });
+
+export default connect(mapStateToProps)(ReviewScreen);
