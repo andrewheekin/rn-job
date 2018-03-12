@@ -2,11 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
-import { Card, Button } from 'react-native-elements';
+import { Card, Button, Icon } from 'react-native-elements';
 import * as actions from '../actions';
 import Swipe from '../components/Swipe';
 
 class DeckScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Jobs',
+    tabBarIcon: ({ tintColor }) => <Icon name="description" size={30} color={tintColor} />,
+  };
+
   renderCard(job) {
     const { jobtitle, company, formattedRelativeTime, snippet, longitude, latitude } = job;
     const cleanSnippet = snippet.replace(/<b>/g, '').replace(/<\/b>/g, '');
@@ -17,7 +22,7 @@ class DeckScreen extends React.Component {
           <MapView
             scrollEnabled={false}
             style={{ flex: 1 }}
-            cacheEnabled={Platform.OS === 'android' ? true : false}
+            cacheEnabled={Platform.OS === 'android'}
             initialRegion={initialRegion}
           />
         </View>

@@ -12,26 +12,35 @@ import ReviewScreen from './screens/ReviewScreen';
 
 export default class App extends React.Component {
   render() {
-    const MainNavigator = TabNavigator({
-      welcome: { screen: WelcomeScreen },
-      auth: { screen: AuthScreen },
-      main: {
-        screen: TabNavigator({
-          map: { screen: MapScreen },
-          deck: { screen: DeckScreen },
-          review: {
-            screen: StackNavigator({
-              review: { screen: ReviewScreen },
-              settings: { screen: SettingsScreen },
-            }),
-          },
-        }),
+    const MainNavigator = TabNavigator(
+      {
+        welcome: { screen: WelcomeScreen },
+        auth: { screen: AuthScreen },
+        main: {
+          screen: TabNavigator(
+            {
+              map: { screen: MapScreen },
+              deck: { screen: DeckScreen },
+              review: {
+                screen: StackNavigator({
+                  review: { screen: ReviewScreen },
+                  settings: { screen: SettingsScreen },
+                }),
+              },
+            },
+            {
+              tabBarPosition: 'bottom',
+              tabBarOptions: { labelStyle: { fontSize: 12 } },
+            }
+          ),
+        },
       },
-    }, {
-      // only mount components when the user navigates to them
-      lazy: true,
-      navigationOptions: { tabBarVisible: false }
-    });
+      {
+        // only mount components when the user navigates to them
+        lazy: true,
+        navigationOptions: { tabBarVisible: false },
+      }
+    );
 
     return (
       <Provider store={store}>
