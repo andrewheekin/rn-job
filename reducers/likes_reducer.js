@@ -5,7 +5,8 @@ import { LIKE_JOB, CLEAR_LIKED_JOBS } from '../actions/types';
 export default function(state = [], action) {
   switch (action.type) {
     case REHYDRATE:
-      return action.payload.likedJobs || [];
+      if (action.payload) return action.payload.likedJobs
+      else return [];
     case CLEAR_LIKED_JOBS:
       return [];
     case LIKE_JOB:

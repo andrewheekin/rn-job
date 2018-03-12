@@ -21,7 +21,6 @@ export const fetchJobs = region => async dispatch => {
     const url = `${JOB_ROOT_URL}${query}`;
     const data = await simpleGetRequest(url);
     dispatch({ type: FETCH_JOBS, payload: data });
-    console.log('data', data);
   } catch (err) {
     throw new Error(`Fetch jobs: ${err}`);
   }
